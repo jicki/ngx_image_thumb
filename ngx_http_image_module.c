@@ -40,7 +40,7 @@
 #define NGX_IMAGE_PNG       3
 #define NGX_IMAGE_BMP       4
 
-#define MAX_DIR_PATH_LEN	256
+#define MAX_DIR_PATH_LEN	1024
 
 #ifndef WIN32
 #define stricmp strcasecmp
@@ -393,7 +393,7 @@ static ngx_int_t ngx_http_image_handler(ngx_http_request_t *r)
 	size_t                     root;
 	ngx_int_t                  rc;
 	ngx_str_t                  path;
-	char                       request_uri[255];
+	char                       request_uri[MAX_DIR_PATH_LEN];
 	int                        request_uri_len;
 	ngx_image_conf_t  *conf;
 	
@@ -428,6 +428,13 @@ static ngx_int_t ngx_http_image_handler(ngx_http_request_t *r)
 		(char *) path.data);
 	if(file_exists((char*) path.data) == -1)
 	{
+        
+	    if (path.len > 800)
+	    {
+		    return NGX_DECLINED;
+	    }
+                /*if url is too long ,just return 404*/
+
 		request_uri_len = strlen((char *)r->uri_start) - strlen((char *)r->uri_end);
 		strncpy(request_uri, (char *)r->uri_start, request_uri_len);
 		request_uri[request_uri_len] = '\0';
