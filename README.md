@@ -45,7 +45,7 @@ $ sudo yum install gd-devel pcre-devel libcurl-devel
 # 嫌麻烦可以用cygwin来编译。还是不建议你这么做了，用Unix/Linux操作系统吧。
 ```
 
-###下载nginx / tengine 源代码
+### 下载nginx / tengine 源代码
 
 #### 然后下载本模块代码，并放在nginx源代码目录下
 #### 选Nginx还是Tengine,您自己看,两者选其一
